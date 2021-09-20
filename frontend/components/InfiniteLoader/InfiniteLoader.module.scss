@@ -1,0 +1,19 @@
+.infinite-loader {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 1000;
+
+	img {
+		animation: load 1.2s infinite linear;
+	}
+}
+
+@keyframes load {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}

@@ -1,0 +1,4 @@
+Sitemap: https://mon-site.fr/sitemap.xml
+
+User-agent: *
+Allow: /*

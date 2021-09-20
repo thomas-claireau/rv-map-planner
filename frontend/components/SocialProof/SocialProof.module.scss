@@ -1,0 +1,15 @@
+.social-proof {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+
+	&.horizontal {
+		flex-direction: row;
+	}
+
+	&.vertical {
+		margin-top: 2rem;
+		flex-direction: column;
+	}
+}

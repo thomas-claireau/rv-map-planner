@@ -1,0 +1,54 @@
+.html-content {
+	> * {
+		margin: 0;
+		padding: 0;
+	}
+
+	p,
+	ul,
+	ol {
+		font-size: 1.9rem;
+		line-height: 3rem;
+	}
+
+	ul,
+	ol {
+		padding-left: 2rem;
+
+		> li:not(:first-child) {
+			margin-top: 2rem;
+		}
+	}
+
+	h2 {
+		font-size: 3.3rem;
+		line-height: 4rem;
+	}
+
+	h3 {
+		font-size: 2.8rem;
+		line-height: 2.5rem;
+		font-weight: 500;
+	}
+
+	h4 {
+		font-size: 2.5rem;
+		line-height: 2.2rem;
+		font-weight: 400;
+	}
+
+	img {
+		width: 100%;
+		aspect-ratio: 2/1;
+		object-fit: cover;
+	}
+
+	code {
+		font-size: 1.3rem;
+	}
+
+	a {
+		text-decoration: underline;
+		color: $bleuClair;
+	}
+}

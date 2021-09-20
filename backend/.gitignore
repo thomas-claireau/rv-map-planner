@@ -1,0 +1,7 @@
+.htaccess
+wp-config.php
+
+upgrade
+uploads
+
+debug.log
