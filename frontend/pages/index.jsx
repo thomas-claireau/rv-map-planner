@@ -7,6 +7,7 @@ import style from './index.module.scss';
 export default function Home({ fields, global }) {
 	return (
 		<Layout>
+			website
 			<SocialProfileJsonLd
 				type="Person"
 				name="Thomas Claireau"
