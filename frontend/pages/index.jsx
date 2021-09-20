@@ -1,20 +1,32 @@
 import axios from 'axios';
 import { SocialProfileJsonLd } from 'next-seo';
+import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
+import { useMemo } from 'react';
 import Layout from '../components/Layout/Layout';
+import Sidebar from '../components/Sidebar/Sidebar';
 import style from './index.module.scss';
 
 export default function Home({ fields, global }) {
+	const Map = useMemo(() =>
+		dynamic(() => import('../components/Map/Map'), {
+			loading: () => <p>A map is loading</p>,
+			ssr: false,
+		})
+	);
+
 	return (
 		<Layout>
-			website test
 			<SocialProfileJsonLd
 				type="Person"
 				name="Thomas Claireau"
 				url={global?.seo.home_url}
 				sameAs={global?.header.menus.items.map((item) => item.url)}
 			/>
-			<main className={style['index']}></main>
+			<main className={style['index']}>
+				<Sidebar />
+				<Map />
+			</main>
 		</Layout>
 	);
 }
