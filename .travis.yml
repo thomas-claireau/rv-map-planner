@@ -1,7 +1,3 @@
-# import deploy_rsa ssh key
-# travis encrypt-file deploy_rsa
-# rm deploy_rsa
-
 language: node_js
 node_js:
   - lts/*

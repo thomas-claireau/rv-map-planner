@@ -1,7 +1,7 @@
 <?php
 
-define( 'WP_CONTENT_DIR', ABSPATH . 'assets-website' );
-define( 'WP_CONTENT_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/assets-website' ); // Do not remove. Removing this line could break your site. Added by Security > Settings > Change Content Directory.
+define( 'WP_CONTENT_DIR', ABSPATH . 'assets-rvmapplanner' );
+define( 'WP_CONTENT_URL', 'https://' . $_SERVER['HTTP_HOST'] . '/assets-rvmapplanner' ); // Do not remove. Removing this line could break your site. Added by Security > Settings > Change Content Directory.
 
 define( 'FRONTEND_URL', 'http://localhost:3000' );
 

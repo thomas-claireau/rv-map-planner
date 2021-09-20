@@ -3,7 +3,7 @@
  * Add acf settings for ACF Free
  * https://akzhy.com/blog/create-options-page-in-wordpress-using-free-acf
  *
- * @package website
+ * @package rvmapplanner
  */
 
 add_filter( 'use_block_editor_for_post', 'disable_gutemberg_on_specific_pages', 5, 2 );
@@ -47,8 +47,11 @@ function hide_settings_page( $query ) {
 	}
 	global $typenow;
 	if ( 'page' === $typenow ) {
-		$settings_page = get_page_by_path( 'site-settings', null, 'page' )->ID;
-		$query->set( 'post__not_in', array( $settings_page ) );
+		$settings_page = get_page_by_path( 'site-settings', null, 'page' );
+
+		if ( $settings_page ) {
+			$query->set( 'post__not_in', array( $settings_page->ID ) );
+		}
 	}
 
 	return null;

@@ -10,9 +10,9 @@ phpcs.xml
 node_modules
 rsyncignore.txt
 
-backend/assets-website/upgrade
-backend/assets-website/uploads
-backend/assets-website/debug.log
+backend/assets-rvmapplanner/upgrade
+backend/assets-rvmapplanner/uploads
+backend/assets-rvmapplanner/debug.log
 backend/wp-admin
 backend/wp-includes
 backend/.gitignore

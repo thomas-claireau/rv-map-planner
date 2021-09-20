@@ -2,7 +2,7 @@
 /**
  * Page Home
  *
- * @package website
+ * @package rvmapplanner
  */
 
 namespace App\Frontend\Pages;

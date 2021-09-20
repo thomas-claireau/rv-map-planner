@@ -2,7 +2,7 @@
 /**
  * Posts controller
  *
- * @package website
+ * @package rvmapplanner
  */
 
 namespace App\Frontend;

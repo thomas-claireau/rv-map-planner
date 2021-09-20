@@ -2,40 +2,40 @@
 /**
  * Global Api Setup
  *
- * @package website
+ * @package rvmapplanner
  */
 
 use App\Frontend\Functions;
 use App\Frontend\Menu;
 
-add_action( 'rest_api_init', 'website_global_api' );
+add_action( 'rest_api_init', 'rvmapplanner_global_api' );
 
-if ( ! function_exists( 'website_global_api' ) ) :
+if ( ! function_exists( 'rvmapplanner_global_api' ) ) :
 	/**
 	 * Register global api
 	 *
 	 * @return void
 	 */
-	function website_global_api() {
+	function rvmapplanner_global_api() {
 		register_rest_route(
 			get_stylesheet() . '/v1',
 			'/global/',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => 'website_global_api_callback',
+				'callback'            => 'rvmapplanner_global_api_callback',
 				'permission_callback' => '__return_true',
 			),
 		);
 	}
 endif;
 
-if ( ! function_exists( 'website_global_api_callback' ) ) :
+if ( ! function_exists( 'rvmapplanner_global_api_callback' ) ) :
 	/**
 	 * Callback of global api
 	 *
 	 * @return void
 	 */
-	function website_global_api_callback() {
+	function rvmapplanner_global_api_callback() {
 		header( 'Access-Control-Allow-Origin: ' . FRONTEND_URL );
 		header( 'content-type:application/json' );
 

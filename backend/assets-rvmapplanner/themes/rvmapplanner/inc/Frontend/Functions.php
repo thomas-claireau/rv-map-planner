@@ -2,7 +2,7 @@
 /**
  * Global functions for frontend treatement
  *
- * @package website
+ * @package rvmapplanner
  */
 
 namespace App\Frontend;

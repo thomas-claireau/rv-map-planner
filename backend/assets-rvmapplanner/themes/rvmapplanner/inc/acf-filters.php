@@ -2,7 +2,7 @@
 /**
  * Acf Filters
  *
- * @package website
+ * @package rvmapplanner
  */
 
 add_filter( 'acf/format_value/type=image', 'acf_image_filter', 20, 3 );

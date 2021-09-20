@@ -2,7 +2,7 @@
 /**
  * Seopress enable preview
  *
- * @package website
+ * @package rvmapplanner
  */
 
 /**

@@ -2,7 +2,7 @@
 /**
  * Configuration of custom post type project
  *
- * @package website
+ * @package rvmapplanner
  */
 
 /**
@@ -62,22 +62,22 @@ if ( ! function_exists( 'create_taxonomy_project_tag' ) ) :
 	 */
 	function create_taxonomy_project_tag() {
 		$labels = array(
-			'name'                       => _x( 'Tags', 'taxonomy general name', 'website' ),
-			'singular_name'              => _x( 'Tag', 'taxonomy singular name', 'website' ),
-			'search_items'               => __( 'Recherche', 'website' ),
-			'popular_items'              => __( 'Tags populaires', 'website' ),
-			'all_items'                  => __( 'Tous les tags', 'website' ),
+			'name'                       => _x( 'Tags', 'taxonomy general name', 'rvmapplanner' ),
+			'singular_name'              => _x( 'Tag', 'taxonomy singular name', 'rvmapplanner' ),
+			'search_items'               => __( 'Recherche', 'rvmapplanner' ),
+			'popular_items'              => __( 'Tags populaires', 'rvmapplanner' ),
+			'all_items'                  => __( 'Tous les tags', 'rvmapplanner' ),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Editer le tag', 'website' ),
-			'update_item'                => __( 'Editer le tag', 'website' ),
-			'add_new_item'               => __( 'Ajouter un tag', 'website' ),
-			'new_item_name'              => __( 'Nouveau tag', 'website' ),
-			'separate_items_with_commas' => __( 'Séparer les tags par une virgule', 'website' ),
-			'add_or_remove_items'        => __( 'Ajouter ou supprimer un tag', 'website' ),
-			'choose_from_most_used'      => __( 'Choisir parmi les tags les plus visités', 'website' ),
-			'not_found'                  => __( 'Aucun tag trouvé', 'website' ),
-			'menu_name'                  => __( 'Tags', 'website' ),
+			'edit_item'                  => __( 'Editer le tag', 'rvmapplanner' ),
+			'update_item'                => __( 'Editer le tag', 'rvmapplanner' ),
+			'add_new_item'               => __( 'Ajouter un tag', 'rvmapplanner' ),
+			'new_item_name'              => __( 'Nouveau tag', 'rvmapplanner' ),
+			'separate_items_with_commas' => __( 'Séparer les tags par une virgule', 'rvmapplanner' ),
+			'add_or_remove_items'        => __( 'Ajouter ou supprimer un tag', 'rvmapplanner' ),
+			'choose_from_most_used'      => __( 'Choisir parmi les tags les plus visités', 'rvmapplanner' ),
+			'not_found'                  => __( 'Aucun tag trouvé', 'rvmapplanner' ),
+			'menu_name'                  => __( 'Tags', 'rvmapplanner' ),
 		);
 
 		$args = array(

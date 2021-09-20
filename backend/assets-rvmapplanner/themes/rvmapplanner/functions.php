@@ -4,10 +4,10 @@
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package website
+ * @package rvmapplanner
  */
 
-if ( ! function_exists( 'website_setup' ) ) :
+if ( ! function_exists( 'rvmapplanner_setup' ) ) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 *
@@ -15,14 +15,14 @@ if ( ! function_exists( 'website_setup' ) ) :
 	 * runs before the init hook. The init hook is too late for some features, such
 	 * as indicating support for post thumbnails.
 	 */
-	function website_setup() {
+	function rvmapplanner_setup() {
 		/*
 		* Make theme available for translation.
 		* Translations can be filed in the /languages/ directory.
 		* If you're building a theme based on Digital Factory, use a find and replace
 		* to change 'vivendi_rse' to the name of your theme in all the template files.
 		*/
-		load_theme_textdomain( 'website', get_template_directory() . '/languages' );
+		load_theme_textdomain( 'rvmapplanner', get_template_directory() . '/languages' );
 
 		/*
 		* Let WordPress manage the document title.
@@ -38,14 +38,14 @@ if ( ! function_exists( 'website_setup' ) ) :
 		*/
 		register_nav_menus(
 			array(
-				'main-menu'   => esc_html__( 'Main', 'website' ),
-				'footer-menu' => esc_html__( 'Footer', 'website' ),
+				'main-menu'   => esc_html__( 'Main', 'rvmapplanner' ),
+				'footer-menu' => esc_html__( 'Footer', 'rvmapplanner' ),
 			)
 		);
 	}
 endif;
 
-add_action( 'after_setup_theme', 'website_setup' );
+add_action( 'after_setup_theme', 'rvmapplanner_setup' );
 
 /**
  * Setup autoload

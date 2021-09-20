@@ -2,7 +2,7 @@
 /**
  * Api Class Menu
  *
- * @package website
+ * @package rvmapplanner
  */
 
 namespace App\Frontend;

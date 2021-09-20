@@ -2,7 +2,7 @@
 /**
  * Setup of API
  *
- * @package website
+ * @package rvmapplanner
  */
 
 /**

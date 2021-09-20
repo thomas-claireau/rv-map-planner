@@ -2,39 +2,39 @@
 /**
  * Post Api Setup
  *
- * @package website
+ * @package rvmapplanner
  */
 
 use App\Frontend\Posts;
 
-add_action( 'rest_api_init', 'website_post_api' );
+add_action( 'rest_api_init', 'rvmapplanner_post_api' );
 
-if ( ! function_exists( 'website_post_api' ) ) :
+if ( ! function_exists( 'rvmapplanner_post_api' ) ) :
 	/**
 	 * Register page api
 	 *
 	 * @return void
 	 */
-	function website_post_api() {
+	function rvmapplanner_post_api() {
 		register_rest_route(
 			get_stylesheet() . '/v1',
 			'/posts/',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
-				'callback'            => 'website_post_api_callback',
+				'callback'            => 'rvmapplanner_post_api_callback',
 				'permission_callback' => '__return_true',
 			),
 		);
 	}
 endif;
 
-if ( ! function_exists( 'website_post_api_callback' ) ) :
+if ( ! function_exists( 'rvmapplanner_post_api_callback' ) ) :
 	/**
 	 * Callback of page api
 	 *
 	 * @param mixed $request - Request.
 	 */
-	function website_post_api_callback( $request ) {
+	function rvmapplanner_post_api_callback( $request ) {
 		header( 'Access-Control-Allow-Origin: ' . FRONTEND_URL );
 		header( 'content-type:application/json' );
 

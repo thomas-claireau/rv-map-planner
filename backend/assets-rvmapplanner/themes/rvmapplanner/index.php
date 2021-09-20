@@ -2,7 +2,7 @@
 /**
  * Template default
  *
- * @package website
+ * @package rvmapplanner
  */
 
 frontend_redirect( get_the_ID() );

@@ -1,18 +1,17 @@
 export default {
-	title: 'Thomas Claireau - Développeur web fullstack',
-	description:
-		"Je m'appelle Thomas Claireau et je suis développeur web fullstack. Sur ce site, je présente mes projets et des articles destinés à partager mon expérience",
+	title: 'RV Map Planner',
+	description: 'Description of rv map planner',
 	canonical: process.env.NEXT_APP_URL,
 	openGraph: {
 		type: 'website',
 		locale: 'fr_FR',
 		url: process.env.NEXT_APP_URL,
-		title: 'Thomas Claireau - Développeur web fullstack',
-		site_name: 'Thomas Claireau - Développeur web fullstack',
+		title: 'RV Map Planner',
+		site_name: 'RV Map Planner',
 	},
 	twitter: {
 		handle: '@handle',
-		site: '@thomas_claireau',
+		site: '@rv_map_planner',
 		cardType: 'summary_large_image',
 	},
 	additionalMetaTags: [
@@ -22,7 +21,7 @@ export default {
 		},
 		{
 			name: 'application-name',
-			content: 'Thomas Claireau - Développeur web fullstack',
+			content: 'RV Map Planner',
 		},
 		{
 			httpEquiv: 'x-ua-compatible',
