@@ -1,15 +1,20 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { moveInArray } from '../Map/helpers';
 import style from './Sidebar.module.scss';
 
-export default function Sidebar({ map, locations }) {
+export default function Sidebar({ map, locations, handleDrag }) {
 	const inputRef = useRef(null);
 
-	console.log(locations);
-
 	function handleDragEnd({ source, destination }) {
-		console.log(source?.index, destination?.index);
+		const reOrderLocations = moveInArray(
+			locations,
+			source?.index,
+			destination?.index
+		);
+
+		handleDrag(reOrderLocations);
 	}
 
 	return (
@@ -59,4 +64,5 @@ export default function Sidebar({ map, locations }) {
 Sidebar.propTypes = {
 	map: PropTypes.object,
 	locations: PropTypes.array,
+	setLocations: PropTypes.func,
 };

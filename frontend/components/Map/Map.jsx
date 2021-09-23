@@ -20,6 +20,8 @@ export default function Map() {
 		clickable: true,
 	};
 
+	console.log(locations);
+
 	useEffect(() => {
 		const map = new window.google.maps.Map(mapDivRef.current, options);
 		setState({ map });
@@ -53,7 +55,13 @@ export default function Map() {
 
 	return (
 		<div className={style['map-container']}>
-			{state?.map && <Sidebar map={state?.map} locations={locations} />}
+			{state?.map && (
+				<Sidebar
+					map={state?.map}
+					locations={locations}
+					handleDrag={(locations) => setLocations(() => [...locations])}
+				/>
+			)}
 			<div className={style['map']} ref={mapDivRef} />
 		</div>
 	);
