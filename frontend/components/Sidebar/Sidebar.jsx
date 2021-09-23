@@ -10,9 +10,8 @@ export default function Sidebar({ map, locations }) {
 	return (
 		<aside className={style['sidebar']}>
 			<input type="text" ref={inputRef} />
-			{places.map((place) => {
-				console.log(place);
-				return <li>coucou</li>;
+			{locations.map((location, index) => {
+				return <li key={index}>{location.address}</li>;
 			})}
 		</aside>
 	);

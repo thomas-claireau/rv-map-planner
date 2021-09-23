@@ -10,6 +10,7 @@ export async function getAddressFromLocation(location) {
 
 	try {
 		const res = await geocoder.geocode({ location });
+		console.log(res);
 		return res?.results[0].formatted_address;
 	} catch (error) {
 		console.error(error);

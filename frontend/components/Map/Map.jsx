@@ -20,15 +20,6 @@ export default function Map() {
 		clickable: true,
 	};
 
-	function updateLocation(address) {
-		setLocations((locations) => {
-			return locations.map((location) => {
-				location.address = address;
-				return location;
-			});
-		});
-	}
-
 	useEffect(() => {
 		const map = new window.google.maps.Map(mapDivRef.current, options);
 		setState({ map });
@@ -53,7 +44,7 @@ export default function Map() {
 		locations?.forEach((location) => {
 			addMarker(map, location);
 		});
-	}, []);
+	}, [mapDivRef]);
 
 	useEffect(
 		() => localStorage.setItem('locations', JSON.stringify(locations)),
@@ -62,11 +53,7 @@ export default function Map() {
 
 	return (
 		<div className={style['map-container']}>
-			<Sidebar
-				map={state?.map}
-				locations={locations}
-				updateLocation={updateLocation}
-			/>
+			{state?.map && <Sidebar map={state?.map} locations={locations} />}
 			<div className={style['map']} ref={mapDivRef} />
 		</div>
 	);
