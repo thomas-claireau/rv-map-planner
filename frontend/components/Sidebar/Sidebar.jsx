@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import style from './Sidebar.module.scss';
 
 export default function Sidebar({ map, locations }) {
@@ -7,12 +8,50 @@ export default function Sidebar({ map, locations }) {
 
 	console.log(locations);
 
+	function handleDragEnd({ source, destination }) {
+		console.log(source?.index, destination?.index);
+	}
+
 	return (
 		<aside className={style['sidebar']}>
 			<input type="text" ref={inputRef} />
-			{locations.map((location, index) => {
-				return <li key={index}>{location.address}</li>;
-			})}
+			{typeof window !== undefined && (
+				<DragDropContext onDragEnd={handleDragEnd}>
+					<Droppable droppableId="locations">
+						{(provided) => {
+							return (
+								<div
+									ref={provided.innerRef}
+									{...provided.draggableProps}
+								>
+									{locations.map((location, index) => {
+										return (
+											<Draggable
+												key={index}
+												draggableId={index.toString()}
+												index={index}
+											>
+												{(provided) => {
+													return (
+														<li
+															ref={provided.innerRef}
+															{...provided.draggableProps}
+															{...provided.dragHandleProps}
+														>
+															{location.address}
+														</li>
+													);
+												}}
+											</Draggable>
+										);
+									})}
+									{provided.placeholder}
+								</div>
+							);
+						}}
+					</Droppable>
+				</DragDropContext>
+			)}
 		</aside>
 	);
 }
