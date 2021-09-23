@@ -1,25 +1,73 @@
-import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { useEffect, useRef, useState } from 'react';
+import Sidebar from '../Sidebar/Sidebar';
+import { addMarker, getAddressFromLocation } from './helpers';
 import style from './Map.module.scss';
 
 export default function Map() {
+	const [state, setState] = useState(null);
+
+	const [locations, setLocations] = useState(
+		typeof window !== 'undefined'
+			? JSON.parse(localStorage.getItem('locations')) || []
+			: []
+	);
+
+	const mapDivRef = useRef(null);
+
+	const options = {
+		center: { lat: 44.2072716, lng: 12.5271884 },
+		zoom: 3,
+		clickable: true,
+	};
+
+	function updateLocation(address) {
+		setLocations((locations) => {
+			return locations.map((location) => {
+				location.address = address;
+				return location;
+			});
+		});
+	}
+
+	useEffect(() => {
+		const map = new window.google.maps.Map(mapDivRef.current, options);
+		setState({ map });
+
+		// interaction click on the map
+		map.addListener('click', async (event) => {
+			const address = await getAddressFromLocation(event.latLng);
+
+			setLocations((locations) => [
+				...locations,
+				{
+					lat: event.latLng.lat(),
+					lng: event.latLng.lng(),
+					address,
+				},
+			]);
+
+			addMarker(map, event.latLng);
+		});
+
+		// add existents locations to the map
+		locations?.forEach((location) => {
+			addMarker(map, location);
+		});
+	}, []);
+
+	useEffect(
+		() => localStorage.setItem('locations', JSON.stringify(locations)),
+		[locations]
+	);
+
 	return (
-		<MapContainer
-			className={style['map']}
-			center={[51.505, -0.09]}
-			zoom={13}
-			scrollWheelZoom={false}
-			style={{ height: '100vh', width: '100%' }}
-		>
-			<TileLayer
-				attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+		<div className={style['map-container']}>
+			<Sidebar
+				map={state?.map}
+				locations={locations}
+				updateLocation={updateLocation}
 			/>
-			<Marker position={[51.505, -0.09]}>
-				<Popup>
-					A pretty CSS3 popup. <br /> Easily customizable.
-				</Popup>
-			</Marker>
-		</MapContainer>
+			<div className={style['map']} ref={mapDivRef} />
+		</div>
 	);
 }

@@ -16,6 +16,7 @@
 		"@fortawesome/react-fontawesome": "^0.1.15",
 		"axios": ">=0.21.2",
 		"feed": "^4.2.2",
+		"flatted": "^3.2.2",
 		"leaflet": "^1.7.1",
 		"moment": "^2.29.1",
 		"next": ">=11.1.1",

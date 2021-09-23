@@ -6,6 +6,7 @@ import axios from 'axios';
 import https from 'https';
 import 'moment/locale/fr';
 import { DefaultSeo } from 'next-seo';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from '../components/ThemeProvider';
 import SEO from '../next-seo.config';
@@ -32,8 +33,10 @@ export default function MyApp({ Component, pageProps }) {
 	return (
 		<ThemeProvider value={global}>
 			<DefaultSeo {...SEO} />
+			<Head>
+				<script async defer src={process.env.NEXT_PUBLIC_MAP_API_URL} />
+			</Head>
 			<Component {...pageProps} />
-			{/* <Contact /> */}
 		</ThemeProvider>
 	);
 }
