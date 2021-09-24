@@ -8,14 +8,20 @@ export function addMarker(map, latLng) {
 export async function getAddressFromLocation(location) {
 	const geocoder = new google.maps.Geocoder();
 
+	const typesNotAllowed = ['natural_feature']; // detect ocean
+
 	try {
 		const res = await geocoder.geocode({ location });
-		console.log(res);
-		return res?.results[0].formatted_address;
+		const result = res?.results[0];
+
+		if (result['types'].some((r) => typesNotAllowed.includes(r)))
+			return false;
+
+		return result.formatted_address;
 	} catch (error) {
 		console.error(error);
 
-		return;
+		return false;
 	}
 }
 

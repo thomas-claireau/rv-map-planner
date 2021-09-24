@@ -20,8 +20,6 @@ export default function Map() {
 		clickable: true,
 	};
 
-	console.log(locations);
-
 	useEffect(() => {
 		const map = new window.google.maps.Map(mapDivRef.current, options);
 		setState({ map });
@@ -29,6 +27,8 @@ export default function Map() {
 		// interaction click on the map
 		map.addListener('click', async (event) => {
 			const address = await getAddressFromLocation(event.latLng);
+
+			if (!address) return;
 
 			setLocations((locations) => [
 				...locations,
