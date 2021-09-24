@@ -46,12 +46,18 @@ export default function Map() {
 
 		// add existents locations to the map
 		locations?.forEach((location, index) => {
-			addMarker(map, location, index);
+			addMarker(map, location, index + 1);
 		});
 	}, [mapDivRef]);
 
 	useEffect(() => {
-		const length = locations.length;
+		drawLineBetweenMarker(state?.map, locations);
+
+		localStorage.setItem('locations', JSON.stringify(locations));
+	}, [locations, state]);
+
+	useEffect(() => {
+		const length = Number(locations.length);
 		const lastLocation = locations[length - 1];
 
 		addMarker(
@@ -59,10 +65,7 @@ export default function Map() {
 			{ lat: lastLocation?.lat, lng: lastLocation?.lng },
 			length
 		);
-		drawLineBetweenMarker(state?.map, locations);
-
-		localStorage.setItem('locations', JSON.stringify(locations));
-	}, [locations, state]);
+	}, [locations]);
 
 	return (
 		<div className={style['map-container']}>

@@ -4,7 +4,7 @@ export function addMarker(map, latLng, index) {
 		map,
 		label: {
 			fontWeight: '600',
-			text: (index + 1).toString(),
+			text: index.toString(),
 		},
 	});
 }
