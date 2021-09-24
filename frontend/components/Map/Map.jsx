@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Sidebar from '../Sidebar/Sidebar';
-import { addMarker, getAddressFromLocation } from './helpers';
+import {
+	addMarker,
+	drawLineBetweenMarker,
+	getAddressFromLocation,
+} from './helpers';
 import style from './Map.module.scss';
 
 export default function Map() {
@@ -48,10 +52,11 @@ export default function Map() {
 		});
 	}, [mapDivRef]);
 
-	useEffect(
-		() => localStorage.setItem('locations', JSON.stringify(locations)),
-		[locations]
-	);
+	useEffect(() => {
+		localStorage.setItem('locations', JSON.stringify(locations));
+
+		drawLineBetweenMarker(state?.map, locations);
+	}, [locations, state]);
 
 	return (
 		<div className={style['map-container']}>

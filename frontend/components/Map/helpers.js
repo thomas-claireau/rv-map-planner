@@ -44,3 +44,17 @@ export function moveInArray(arr, from, to) {
 
 	return arr;
 }
+
+export function drawLineBetweenMarker(map, locations) {
+	const latLngs = locations.map(
+		(location) => new google.maps.LatLng(location.lat, location.lng)
+	);
+
+	const line = new google.maps.Polyline({
+		path: latLngs,
+		geodesic: true,
+		strokeColor: '#4986E7',
+	});
+
+	line.setMap(map);
+}
