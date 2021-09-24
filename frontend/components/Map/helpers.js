@@ -1,7 +1,11 @@
-export function addMarker(map, latLng) {
+export function addMarker(map, latLng, index) {
 	new google.maps.Marker({
-		position: latLng,
+		position: new google.maps.LatLng(latLng),
 		map,
+		label: {
+			fontWeight: '600',
+			text: (index + 1).toString(),
+		},
 	});
 }
 

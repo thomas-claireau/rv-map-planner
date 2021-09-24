@@ -42,20 +42,26 @@ export default function Map() {
 					address,
 				},
 			]);
-
-			addMarker(map, event.latLng);
 		});
 
 		// add existents locations to the map
-		locations?.forEach((location) => {
-			addMarker(map, location);
+		locations?.forEach((location, index) => {
+			addMarker(map, location, index);
 		});
 	}, [mapDivRef]);
 
 	useEffect(() => {
-		localStorage.setItem('locations', JSON.stringify(locations));
+		const length = locations.length;
+		const lastLocation = locations[length - 1];
 
+		addMarker(
+			state?.map,
+			{ lat: lastLocation?.lat, lng: lastLocation?.lng },
+			length
+		);
 		drawLineBetweenMarker(state?.map, locations);
+
+		localStorage.setItem('locations', JSON.stringify(locations));
 	}, [locations, state]);
 
 	return (
