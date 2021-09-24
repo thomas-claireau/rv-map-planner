@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { moveInArray } from '../Map/helpers';
+import Helpers from '../../utils/Helpers';
 import style from './Sidebar.module.scss';
 
 export default function Sidebar({ map, locations, handleDrag }) {
 	const inputRef = useRef(null);
 
 	function handleDragEnd({ source, destination }) {
-		const reOrderLocations = moveInArray(
+		const reOrderLocations = Helpers.moveInArray(
 			locations,
 			source?.index,
 			destination?.index

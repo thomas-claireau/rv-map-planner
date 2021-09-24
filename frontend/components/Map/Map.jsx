@@ -1,38 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
-import { getLocalStorageItem } from '../../functions';
+import GoogleMap from '../../utils/GoogleMap';
+import LocalStorage from '../../utils/LocalStorage';
 import Sidebar from '../Sidebar/Sidebar';
-import {
-	addMarker,
-	drawLineBetweenMarker,
-	getAddressFromLocation,
-} from './helpers';
 import style from './Map.module.scss';
 
 export default function Map() {
 	const [state, setState] = useState(null);
 
 	const [locations, setLocations] = useState(
-		getLocalStorageItem('locations', [])
+		LocalStorage.get('locations', [])
 	);
 
 	const mapDivRef = useRef(null);
 
 	const options = {
-		center: getLocalStorageItem('center', {
+		center: LocalStorage.get('center', {
 			lat: 44.2072716,
 			lng: 12.5271884,
 		}),
-		zoom: getLocalStorageItem('zoom', 3),
+		zoom: LocalStorage.get('zoom', 3),
 		clickable: true,
 	};
 
 	useEffect(() => {
 		const map = new window.google.maps.Map(mapDivRef.current, options);
+
 		setState({ map });
 
 		// interaction click on the map
 		map.addListener('click', async (event) => {
-			const address = await getAddressFromLocation(event.latLng);
+			const address = await GoogleMap.getAddress(event.latLng);
 
 			if (!address) return;
 
@@ -59,12 +56,12 @@ export default function Map() {
 
 		// add existents locations to the map
 		locations?.forEach((location, index) => {
-			addMarker(map, location, index + 1);
+			GoogleMap.addMarker(map, location, index + 1);
 		});
 	}, [mapDivRef]);
 
 	useEffect(() => {
-		drawLineBetweenMarker(state?.map, locations);
+		GoogleMap.drawLine(state?.map, locations);
 
 		localStorage.setItem('locations', JSON.stringify(locations));
 	}, [locations, state]);
@@ -73,7 +70,7 @@ export default function Map() {
 		const length = Number(locations.length);
 		const lastLocation = locations[length - 1];
 
-		addMarker(
+		GoogleMap.addMarker(
 			state?.map,
 			{ lat: lastLocation?.lat, lng: lastLocation?.lng },
 			length
