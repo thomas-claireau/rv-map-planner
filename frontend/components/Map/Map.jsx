@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { getLocalStorageItem } from '../../functions';
 import Sidebar from '../Sidebar/Sidebar';
 import {
 	addMarker,
@@ -11,16 +12,17 @@ export default function Map() {
 	const [state, setState] = useState(null);
 
 	const [locations, setLocations] = useState(
-		typeof window !== 'undefined'
-			? JSON.parse(localStorage.getItem('locations')) || []
-			: []
+		getLocalStorageItem('locations', [])
 	);
 
 	const mapDivRef = useRef(null);
 
 	const options = {
-		center: { lat: 44.2072716, lng: 12.5271884 },
-		zoom: 3,
+		center: getLocalStorageItem('center', {
+			lat: 44.2072716,
+			lng: 12.5271884,
+		}),
+		zoom: getLocalStorageItem('zoom', 3),
 		clickable: true,
 	};
 
@@ -42,6 +44,17 @@ export default function Map() {
 					address,
 				},
 			]);
+		});
+
+		// interactive zoom and center map
+		map.addListener('idle', () => {
+			let center = map.getCenter();
+			center = { lat: center?.lat(), lng: center?.lng() };
+
+			const zoom = map.getZoom();
+
+			localStorage.setItem('zoom', zoom);
+			localStorage.setItem('center', JSON.stringify(center));
 		});
 
 		// add existents locations to the map
