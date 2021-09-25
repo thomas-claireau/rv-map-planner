@@ -6,6 +6,7 @@ import Sidebar from '../Sidebar/Sidebar';
 import style from './Map.module.scss';
 
 export default function Map() {
+	const [google, setGoogle] = useState(null);
 	const [state, setState] = useState(null);
 	const [lines, setLines] = useState(null);
 	const [locations, setLocations] = useState(
@@ -23,22 +24,26 @@ export default function Map() {
 		clickable: true,
 	};
 
+	useEffect(() => setGoogle(window?.google), []);
+
 	useEffect(() => {
-		const map = new window.google.maps.Map(mapDivRef.current, options);
+		if (mapDivRef && google) {
+			const map = new google.maps.Map(mapDivRef.current, options);
 
-		setState({ map });
+			setState({ map });
 
-		// interactive zoom and center map
-		map.addListener('idle', () => {
-			let center = map.getCenter();
-			center = { lat: center?.lat(), lng: center?.lng() };
+			// interactive zoom and center map
+			map.addListener('idle', () => {
+				let center = map.getCenter();
+				center = { lat: center?.lat(), lng: center?.lng() };
 
-			const zoom = map.getZoom();
+				const zoom = map.getZoom();
 
-			localStorage.setItem('zoom', zoom);
-			localStorage.setItem('center', JSON.stringify(center));
-		});
-	}, [mapDivRef]);
+				localStorage.setItem('zoom', zoom);
+				localStorage.setItem('center', JSON.stringify(center));
+			});
+		}
+	}, [google, mapDivRef]);
 
 	useEffect(() => {
 		setLines(GoogleMap.drawLines(state?.map, locations, lines));
