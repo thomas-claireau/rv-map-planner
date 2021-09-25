@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import GoogleMap from '../../utils/GoogleMap';
 import LocalStorage from '../../utils/LocalStorage';
 import Sidebar from '../Sidebar/Sidebar';
+import { useThemeContext } from '../ThemeProvider';
 import style from './Map.module.scss';
 
 export default function Map() {
@@ -10,6 +11,9 @@ export default function Map() {
 	const [locations, setLocations] = useState(
 		LocalStorage.get('locations', [])
 	);
+
+	const context = useThemeContext();
+	console.log(context);
 
 	const mapDivRef = useRef(null);
 
@@ -26,22 +30,6 @@ export default function Map() {
 		const map = new window.google.maps.Map(mapDivRef.current, options);
 
 		setState({ map });
-
-		// interaction click on the map
-		map.addListener('click', async (event) => {
-			const address = await GoogleMap.getAddress(event.latLng);
-
-			if (!address) return;
-
-			setLocations((locations) => [
-				...locations,
-				{
-					lat: event.latLng.lat(),
-					lng: event.latLng.lng(),
-					address,
-				},
-			]);
-		});
 
 		// interactive zoom and center map
 		map.addListener('idle', () => {
@@ -67,14 +55,17 @@ export default function Map() {
 	}, [locations, state]);
 
 	useEffect(() => {
-		const length = Number(locations.length);
-		const lastLocation = locations[length - 1];
+		if (locations.length) {
+			const length = Number(locations.length);
+			const lastLocation = locations[length - 1];
 
-		GoogleMap.addMarker(
-			state?.map,
-			{ lat: lastLocation?.lat, lng: lastLocation?.lng },
-			length
-		);
+			// add marker on click
+			GoogleMap.addMarker(
+				state?.map,
+				{ lat: lastLocation?.lat, lng: lastLocation?.lng },
+				length
+			);
+		}
 	}, [locations]);
 
 	return (

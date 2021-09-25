@@ -1,12 +1,45 @@
 import PropTypes from 'prop-types';
-import { useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Helpers from '../../utils/Helpers';
+import Autocomplete from '../Autocomplete/Autocomplete';
 import style from './Sidebar.module.scss';
 
 export default function Sidebar({ map, locations, handleDrag }) {
-	const inputRef = useRef(null);
+	const [loading, setLoading] = useState(false);
+	const [text, setText] = useState('');
+	const [predictions, setPredictions] = useState([]);
+	const autocompleteService = new google.maps.places.AutocompleteService();
 
+	// fire places search with timeout
+	useEffect(() => {
+		if (text.length > 3) {
+			const timeout = setTimeout(() => {
+				autocompleteService.getPlacePredictions(
+					{
+						input: text,
+						types: ['(cities)'],
+					},
+					handlePredictions
+				);
+			}, 1500);
+
+			return () => clearTimeout(timeout);
+		}
+
+		if (text.length <= 3 && predictions.length) setPredictions([]);
+	}, [text]);
+
+	// load places predictions
+	function handlePredictions(predictions, status) {
+		if (status != google.maps.places.PlacesServiceStatus.OK) {
+			setPredictions([]);
+			return;
+		}
+		setPredictions(predictions);
+	}
+
+	// reorder marker
 	function handleDragEnd({ source, destination }) {
 		const reOrderLocations = Helpers.moveInArray(
 			locations,
@@ -19,7 +52,13 @@ export default function Sidebar({ map, locations, handleDrag }) {
 
 	return (
 		<aside className={style['sidebar']}>
-			<input type="text" ref={inputRef} />
+			<Autocomplete
+				map={map}
+				text={text}
+				setText={setText}
+				predictions={predictions}
+				locations={locations}
+			/>
 			{typeof window !== undefined && (
 				<DragDropContext onDragEnd={handleDragEnd}>
 					<Droppable droppableId="locations">

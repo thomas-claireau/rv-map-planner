@@ -48,6 +48,9 @@ export async function getServerSideProps() {
 	}
 
 	return {
-		props: { fields: fields?.data ?? null, global: global?.data ?? null },
+		props: {
+			fields: fields?.data ?? null,
+			global: global?.data ?? null,
+		},
 	};
 }
