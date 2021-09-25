@@ -1,6 +1,7 @@
 export default class GoogleMap {
 	static addMarker(map, latLng, index) {
-		new google.maps.Marker({
+		const marker = new google.maps.Marker({
+			latLng,
 			position: new google.maps.LatLng(latLng),
 			map,
 			label: {
@@ -8,39 +9,26 @@ export default class GoogleMap {
 				text: index.toString(),
 			},
 		});
+
+		return marker;
 	}
 
-	static async getAddress(location) {
-		const geocoder = new google.maps.Geocoder();
+	static drawLines(map, locations, oldLines) {
+		// clear oldLines
+		if (oldLines) oldLines.setMap(null);
 
-		const typesNotAllowed = ['natural_feature']; // detect ocean
-
-		try {
-			const res = await geocoder.geocode({ location });
-			const result = res?.results[0];
-
-			if (result['types'].some((r) => typesNotAllowed.includes(r)))
-				return false;
-
-			return result.formatted_address;
-		} catch (error) {
-			console.error(error);
-
-			return false;
-		}
-	}
-
-	static drawLine(map, locations) {
 		const latLngs = locations.map(
 			(location) => new google.maps.LatLng(location.lat, location.lng)
 		);
 
-		const line = new google.maps.Polyline({
+		const lines = new google.maps.Polyline({
 			path: latLngs,
 			geodesic: true,
 			strokeColor: '#4986E7',
 		});
 
-		line.setMap(map);
+		lines.setMap(map);
+
+		return lines;
 	}
 }

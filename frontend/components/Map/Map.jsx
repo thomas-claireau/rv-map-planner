@@ -7,7 +7,7 @@ import style from './Map.module.scss';
 
 export default function Map() {
 	const [state, setState] = useState(null);
-
+	const [lines, setLines] = useState(null);
 	const [locations, setLocations] = useState(
 		LocalStorage.get('locations', [])
 	);
@@ -38,45 +38,30 @@ export default function Map() {
 			localStorage.setItem('zoom', zoom);
 			localStorage.setItem('center', JSON.stringify(center));
 		});
-
-		// add existents locations to the map
-		locations?.forEach((location, index) => {
-			GoogleMap.addMarker(map, location, index + 1);
-		});
 	}, [mapDivRef]);
 
 	useEffect(() => {
-		GoogleMap.drawLine(state?.map, locations);
+		setLines(GoogleMap.drawLines(state?.map, locations, lines));
 
 		localStorage.setItem('locations', JSON.stringify(locations));
+
+		if (locations.length) {
+			locations.forEach(({ lat, lng }, index) => {
+				GoogleMap.addMarker(state?.map, { lat, lng }, index + 1);
+			});
+		}
 	}, [locations, state]);
 
-	useEffect(() => {
-		if (locations.length) {
-			const length = Number(locations.length);
-			const lastLocation = locations[length - 1];
-
-			// add marker on click
-			GoogleMap.addMarker(
-				state?.map,
-				{ lat: lastLocation?.lat, lng: lastLocation?.lng },
-				length
-			);
-		}
-	}, [locations]);
+	function handleDrag(locations) {
+		setLocations(() => [...locations]);
+	}
 
 	return (
 		<MapProvider
 			className={style['map-container']}
 			value={{ map: state?.map, locations, setLocations }}
 		>
-			{state?.map && (
-				<Sidebar
-					map={state?.map}
-					locations={locations}
-					handleDrag={(locations) => setLocations(() => [...locations])}
-				/>
-			)}
+			{state?.map && <Sidebar handleDrag={handleDrag} />}
 			<div className={style['map']} ref={mapDivRef} />
 		</MapProvider>
 	);

@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Helpers from '../../utils/Helpers';
 import Autocomplete from '../Autocomplete/Autocomplete';
+import { useMapContext } from '../MapProvider';
 import style from './Sidebar.module.scss';
 
-export default function Sidebar({ map, locations, handleDrag }) {
+export default function Sidebar({ handleDrag }) {
+	const { map, locations } = useMapContext();
+
 	const [loading, setLoading] = useState(false);
 	const [text, setText] = useState('');
 	const [predictions, setPredictions] = useState([]);
@@ -53,7 +56,6 @@ export default function Sidebar({ map, locations, handleDrag }) {
 	return (
 		<aside className={style['sidebar']}>
 			<Autocomplete
-				map={map}
 				text={text}
 				setText={setText}
 				predictions={predictions}
@@ -100,7 +102,5 @@ export default function Sidebar({ map, locations, handleDrag }) {
 }
 
 Sidebar.propTypes = {
-	map: PropTypes.object,
-	locations: PropTypes.array,
-	setLocations: PropTypes.func,
+	handleDrag: PropTypes.func,
 };
