@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import GoogleMap from '../../utils/GoogleMap';
 import LocalStorage from '../../utils/LocalStorage';
+import { MapProvider } from '../MapProvider';
 import Sidebar from '../Sidebar/Sidebar';
-import { useThemeContext } from '../ThemeProvider';
 import style from './Map.module.scss';
 
 export default function Map() {
@@ -11,9 +11,6 @@ export default function Map() {
 	const [locations, setLocations] = useState(
 		LocalStorage.get('locations', [])
 	);
-
-	const context = useThemeContext();
-	console.log(context);
 
 	const mapDivRef = useRef(null);
 
@@ -69,7 +66,10 @@ export default function Map() {
 	}, [locations]);
 
 	return (
-		<div className={style['map-container']}>
+		<MapProvider
+			className={style['map-container']}
+			value={{ map: state?.map, locations, setLocations }}
+		>
 			{state?.map && (
 				<Sidebar
 					map={state?.map}
@@ -78,6 +78,6 @@ export default function Map() {
 				/>
 			)}
 			<div className={style['map']} ref={mapDivRef} />
-		</div>
+		</MapProvider>
 	);
 }

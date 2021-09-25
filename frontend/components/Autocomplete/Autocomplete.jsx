@@ -1,25 +1,31 @@
 import PropTypes from 'prop-types';
-import GoogleMap from '../../utils/GoogleMap';
+import Helpers from '../../utils/Helpers';
+import { useMapContext } from '../MapProvider';
 
-export default function Autocomplete({
-	map,
-	text,
-	setText,
-	predictions,
-	locations,
-}) {
+export default function Autocomplete({ text, setText, predictions }) {
+	const { setLocations } = useMapContext();
+
 	async function handleClick(event) {
 		const geocoder = new google.maps.Geocoder();
 		const placeId = event.currentTarget.dataset.id;
 
 		const res = await geocoder.geocode({ placeId });
-		const location = res.results[0].geometry.location;
+		const result = res?.results[0];
+		const location = result?.geometry.location;
 
-		GoogleMap.addMarker(
-			map,
-			{ lat: location.lat(), lng: location.lng() },
-			locations.length + 1
-		);
+		setLocations((locations) => {
+			const item = {
+				lat: location?.lat(),
+				lng: location?.lng(),
+				address: result?.formatted_address,
+			};
+
+			// check if location already exist
+			if (locations.some((location) => Helpers.deepEqual(location, item)))
+				return locations;
+
+			return [...locations, item];
+		});
 
 		setText('');
 	}
@@ -50,5 +56,4 @@ Autocomplete.propTypes = {
 	text: PropTypes.string,
 	setText: PropTypes.func,
 	predictions: PropTypes.array,
-	locations: PropTypes.array,
 };

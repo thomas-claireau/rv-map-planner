@@ -18,7 +18,7 @@ export default function Sidebar({ map, locations, handleDrag }) {
 				autocompleteService.getPlacePredictions(
 					{
 						input: text,
-						types: ['(cities)'],
+						types: ['(regions)'],
 					},
 					handlePredictions
 				);
@@ -57,7 +57,6 @@ export default function Sidebar({ map, locations, handleDrag }) {
 				text={text}
 				setText={setText}
 				predictions={predictions}
-				locations={locations}
 			/>
 			{typeof window !== undefined && (
 				<DragDropContext onDragEnd={handleDragEnd}>

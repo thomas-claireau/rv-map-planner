@@ -1,6 +1,5 @@
 export default class GoogleMap {
 	static addMarker(map, latLng, index) {
-		console.log(map, latLng, index);
 		new google.maps.Marker({
 			position: new google.maps.LatLng(latLng),
 			map,
