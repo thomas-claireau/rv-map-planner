@@ -23,8 +23,6 @@ export default function Map({ google }) {
 		clickable: true,
 	};
 
-	console.log(google);
-
 	useEffect(() => {
 		if (mapDivRef && google) {
 			const map = new google.maps.Map(mapDivRef.current, options);

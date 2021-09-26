@@ -11,7 +11,7 @@ export default function Home({ fields, global }) {
 	useEffect(() => {
 		const timeout = setTimeout(() => {
 			setGoogle(window.google);
-		}, 1000);
+		}, 500);
 
 		return () => clearTimeout(timeout);
 	}, []);
