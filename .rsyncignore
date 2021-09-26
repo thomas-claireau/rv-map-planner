@@ -10,14 +10,14 @@ phpcs.xml
 node_modules
 rsyncignore.txt
 
-backend/assets-rvmapplanner/upgrade
-backend/assets-rvmapplanner/uploads
-backend/assets-rvmapplanner/debug.log
-backend/wp-admin
-backend/wp-includes
-backend/.gitignore
-backend/.htaccess
-backend/wp-config.php
+blog/assets-rvmapplanner/upgrade
+blog/assets-rvmapplanner/uploads
+blog/assets-rvmapplanner/debug.log
+blog/wp-admin
+blog/wp-includes
+blog/.gitignore
+blog/.htaccess
+blog/wp-config.php
 
 frontend/.next/
 frontend/node_modules
