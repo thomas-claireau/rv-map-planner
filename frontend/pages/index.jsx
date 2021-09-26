@@ -1,10 +1,20 @@
 import axios from 'axios';
 import { SocialProfileJsonLd } from 'next-seo';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
 import Map from '../components/Map/Map';
 
 export default function Home({ fields, global }) {
+	const [google, setGoogle] = useState(null);
+
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			setGoogle(window.google);
+		}, 500);
+		return () => clearTimeout(timeout);
+	}, []);
+
 	return (
 		<Layout>
 			<SocialProfileJsonLd
@@ -14,7 +24,7 @@ export default function Home({ fields, global }) {
 				sameAs={global?.header.menus.items.map((item) => item.url)}
 			/>
 
-			<Map />
+			<Map google={google} />
 		</Layout>
 	);
 }

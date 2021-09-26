@@ -5,8 +5,7 @@ import { MapProvider } from '../MapProvider';
 import Sidebar from '../Sidebar/Sidebar';
 import style from './Map.module.scss';
 
-export default function Map() {
-	const [google, setGoogle] = useState(null);
+export default function Map({ google }) {
 	const [state, setState] = useState(null);
 	const [lines, setLines] = useState(null);
 	const [locations, setLocations] = useState(
@@ -23,8 +22,6 @@ export default function Map() {
 		zoom: LocalStorage.get('zoom', 3),
 		clickable: true,
 	};
-
-	useEffect(() => setGoogle(window?.google), []);
 
 	useEffect(() => {
 		if (mapDivRef && google) {
@@ -46,16 +43,18 @@ export default function Map() {
 	}, [google, mapDivRef]);
 
 	useEffect(() => {
-		setLines(GoogleMap.drawLines(state?.map, locations, lines));
+		if (google) {
+			setLines(GoogleMap.drawLines(state?.map, locations, lines));
 
-		localStorage.setItem('locations', JSON.stringify(locations));
+			localStorage.setItem('locations', JSON.stringify(locations));
 
-		if (locations.length) {
-			locations.forEach(({ lat, lng }, index) => {
-				GoogleMap.addMarker(state?.map, { lat, lng }, index + 1);
-			});
+			if (locations.length) {
+				locations.forEach(({ lat, lng }, index) => {
+					GoogleMap.addMarker(state?.map, { lat, lng }, index + 1);
+				});
+			}
 		}
-	}, [locations, state]);
+	}, [google, locations, state]);
 
 	function handleDrag(locations) {
 		setLocations(() => [...locations]);
