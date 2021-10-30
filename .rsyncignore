@@ -10,15 +10,6 @@ phpcs.xml
 node_modules
 rsyncignore.txt
 
-backend/assets-rvmapplanner/upgrade
-backend/assets-rvmapplanner/uploads
-backend/assets-rvmapplanner/debug.log
-backend/wp-admin
-backend/wp-includes
-backend/.gitignore
-backend/.htaccess
-backend/wp-config.php
-
 frontend/.next/
 frontend/node_modules
 frontend/.env.local
