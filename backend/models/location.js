@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Location.init({
-    lat: DataTypes.INTEGER,
-    lng: DataTypes.INTEGER,
+    lat: DataTypes.DECIMAL(8,6),
+    lng: DataTypes.DECIMAL(9,6),
     address: DataTypes.STRING
   }, {
     sequelize,

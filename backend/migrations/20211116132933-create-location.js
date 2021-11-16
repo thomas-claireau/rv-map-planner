@@ -9,10 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       lat: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(8,6)
       },
       lng: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(9,6)
       },
       address: {
         type: Sequelize.STRING
