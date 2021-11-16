@@ -14,6 +14,9 @@ module.exports = {
       lng: {
         type: Sequelize.DECIMAL(9,6)
       },
+      position: {
+        type: Sequelize.INTEGER
+      },
       address: {
         type: Sequelize.STRING
       },
