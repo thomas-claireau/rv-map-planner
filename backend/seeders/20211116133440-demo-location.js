@@ -2,7 +2,7 @@
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.bulkDelete('Locations', null, {});
+		await queryInterface.bulkDelete('Locations', null, { truncate: true });
 
 		await queryInterface.bulkInsert('Locations', [
 			{
@@ -33,6 +33,6 @@ module.exports = {
 	},
 
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.bulkDelete('Locations', null, {});
+		await queryInterface.bulkDelete('Locations', null, { truncate: true });
 	},
 };
