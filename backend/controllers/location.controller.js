@@ -65,8 +65,40 @@ exports.findOne = (req, res) => {
 };
 
 exports.update = (req, res) => {
-	console.log('update');
+	Location.findOne({
+		attributes: ['lat', 'lng', 'address'],
+		where: { id: req.params.locationId },
+	})
+		.then((location) => {
+			if (!location)
+				return res.status(404).json({ message: 'Pas de location' });
+
+			Location.update(
+				{
+					...req.body,
+					updatedAt: new Date(),
+				},
+				{
+					where: { id: req.params.locationId },
+				}
+			)
+				.then(() => res.status(200).json({ message: 'Location modifiée' }))
+				.catch((err) => res.status(501).json(err));
+		})
+		.catch((error) => res.status(500).json(error));
 };
 exports.delete = (req, res) => {
-	console.log('delete');
+	Location.findOne({
+		attributes: ['id'],
+		where: { id: req.params.locationId },
+	})
+		.then((location) => {
+			if (!location)
+				return res.status(404).json({ message: 'Pas de location' });
+
+			Location.destroy({ where: { id: req.params.locationId } })
+				.then(() => res.status(204).end())
+				.catch((err) => res.status(501).json(err));
+		})
+		.catch((error) => res.status(500).json(error));
 };
